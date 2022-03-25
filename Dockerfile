@@ -1,7 +1,7 @@
 FROM openjdk:11
 COPY /target/crudapp-0.0.1-SNAPSHOT.jar /usr/app/
 WORKDIR /usr/app
-RUN sh -c 'touch basic-spring-boot-docker-0.0.1-SNAPSHOT.jar'
+RUN sh -c 'touch crudapp-0.0.1-SNAPSHOT.jar'
 ARG JAR_FILE=target/basic-spring-boot-docker-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-jar","crudapp-0.0.1-SNAPSHOT.jar"]
 
