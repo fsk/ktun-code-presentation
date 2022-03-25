@@ -3,9 +3,10 @@ version: '2'
 services:
   app:
     image: 'crudapp:latest'
-    build:
-      context: ../../.././
+    build: ./
     container_name: ktun-crudapp
+    ports:
+      - "1905:1905"
     depends_on:
       - db
     environment:
@@ -15,7 +16,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
-    image: 'postgres:13.1-alpine'
+    image: 'postgres'
     container_name: db
     environment:
       - POSTGRES_DB=studentdb
