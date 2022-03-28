@@ -15,6 +15,17 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    @GetMapping("/")
+    public String merhaba() {
+        return "Herkese Merhaba. Turkey Java Community olarak burada olmaktan" +
+                "cok mutluyuz.";
+    }
+
+    @GetMapping("/bitti")
+    public String burayaKadar() {
+        return "Benim anlatacaklarim bu kadardi. Beni dinlediginiz icin tesekkurler.";
+    }
+
     @GetMapping("/get-all-students")
     public ResponseEntity<List<Student>> getAllStudents() {
         return ResponseEntity.status(200).body(studentService.getAllStudents());
@@ -40,6 +51,11 @@ public class StudentController {
     @DeleteMapping("/delete-all-students")
     public ResponseEntity deleteAllStudents() {
         return ResponseEntity.ok(studentService.deleteAllStudents());
+    }
+
+    @PutMapping("/update-student/{id}")
+    public ResponseEntity<Student> updateEmployeeById(@PathVariable(value = "id") Integer id, @RequestBody Student updatedStudent) {
+        return ResponseEntity.ok(studentService.updateStudent(id, updatedStudent));
     }
 
 

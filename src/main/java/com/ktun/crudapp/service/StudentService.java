@@ -2,6 +2,8 @@ package com.ktun.crudapp.service;
 
 import com.ktun.crudapp.StudentRepository.StudentRepository;
 import com.ktun.crudapp.entity.Student;
+import com.ktun.crudapp.exception.studentexceptions.EmailAlreadyExistException;
+import com.ktun.crudapp.exception.studentexceptions.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class StudentService {
 
 
     public final Student getStudentById(Integer id) {
-        return studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException());
     }
 
     public final String deleteStudentById(Integer id) {
@@ -34,6 +36,17 @@ public class StudentService {
     }
 
     public Student createStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public Student updateStudent(Integer studentId, Student updatedStudent) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException());
+        student.setName(updatedStudent.getName());
+        student.setSurname(updatedStudent.getSurname());
+        student.setEmail(updatedStudent.getEmail());
+        student.setDepartment(updatedStudent.getDepartment());
+        student.setAddress(updatedStudent.getAddress());
+
         return studentRepository.save(student);
     }
 }
